@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+public class VampiroSoloMatematicas {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Inicio del rango: ");
+        long inicio = sc.nextLong();
+
+        System.out.print("Fin del rango: ");
+        long fin = sc.nextLong();
+
+        boolean encontrado = false;
+
+        for (long numero = inicio; numero <= fin; numero++) {
+            int[] digitosOriginal = contarDigitos(numero);
+            int cantidadDigitos = contarCantidad(digitosOriginal);
+
+            if (cantidadDigitos % 2 != 0) continue;
+
+            int mitad = cantidadDigitos / 2;
+            long desde = (long) Math.pow(10, mitad - 1);
+            long hasta = (long) Math.pow(10, mitad);
+
+            for (long i = desde; i < hasta; i++) {
+                if (numero % i != 0) continue;
+                long j = numero / i;
+
+                if (contarCantidad(j) != mitad) continue;
+
+                // Verificar que no terminen ambos en 0
+                if (i % 10 == 0 && j % 10 == 0) continue;
+
+                int[] digitosColmillos = sumarContadores(contarDigitos(i), contarDigitos(j));
+
+                if (compararContadores(digitosOriginal, digitosColmillos)) {
+                    System.out.println("Numero vampiro: " + numero);
+                    System.out.println("Colmillos: " + i + " x " + j);
+                    encontrado = true;
+                    break;
+                }
+            }
+
+            if (encontrado) break;
+        }
+
+        if (!encontrado) {
+            System.out.println("No se encontro ningun numero vampiro en ese rango.");
+        }
+
+        sc.close();
+    }
+
+    // Cuenta los digitos de un numero
+    public static int[] contarDigitos(long n) {
+        int[] contador = new int[10];
+        while (n > 0) {
+            int digito = (int) (n % 10);
+            contador[digito]++;
+            n /= 10;
+        }
+        return contador;
+    }
+
+    // Cuenta cantidad total de digitos a partir del contador
+    public static int contarCantidad(int[] contador) {
+        int suma = 0;
+        for (int i = 0; i < 10; i++) {
+            suma += contador[i];
+        }
+        return suma;
+    }
+
+    // Cuenta cantidad de digitos directamente (sin strings)
+    public static int contarCantidad(long n) {
+        int total = 0;
+        while (n > 0) {
+            total++;
+            n /= 10;
+        }
+        return total;
+    }
+
+    // Suma dos contadores de digitos
+    public static int[] sumarContadores(int[] a, int[] b) {
+        int[] resultado = new int[10];
+        for (int i = 0; i < 10; i++) {
+            resultado[i] = a[i] + b[i];
+        }
+        return resultado;
+    }
+
+    // Compara dos arreglos de conteo de digitos
+    public static boolean compararContadores(int[] a, int[] b) {
+        for (int i = 0; i < 10; i++) {
+            if (a[i] != b[i]) return false;
+        }
+        return true;
+    }
+}
