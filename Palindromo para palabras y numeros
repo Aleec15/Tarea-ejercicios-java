@@ -1,0 +1,75 @@
+import java.util.Scanner;
+import java.text.Normalizer;
+
+public class PalindromoMenu {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int opcion;
+
+        do {
+            System.out.println("\nQue deseas verificar?");
+            System.out.println("1. Numero");
+            System.out.println("2. Palabra o frase");
+            System.out.println("3. Salir");
+            System.out.print("Elige una opcion (1, 2 o 3): ");
+            opcion = sc.nextInt();
+            sc.nextLine(); // Limpia el salto de linea pendiente
+
+            switch (opcion) {
+                case 1:
+                    // Palindromo numerico
+                    System.out.print("Ingresa un numero: ");
+                    int numero = sc.nextInt();
+                    int original = numero;
+                    int invertido = 0;
+
+                    while (numero > 0) {
+                        int digito = numero % 10;
+                        invertido = invertido * 10 + digito;
+                        numero = numero / 10;
+                    }
+
+                    if (original == invertido) {
+                        System.out.println("Si! El numero es palindromo.");
+                    } else {
+                        System.out.println("No, el numero no es palindromo.");
+                    }
+                    break;
+
+                case 2:
+                    // Palindromo de palabra o frase (sin tildes)
+                    System.out.print("Ingresa una palabra o frase: ");
+                    String entrada = sc.nextLine();
+
+                    // Limpiar espacios, tildes y convertir a minusculas
+                    String limpio = Normalizer.normalize(entrada, Normalizer.Form.NFD)
+                                        .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "") // quitar tildes
+                                        .replaceAll("\\s+", "") // quitar espacios
+                                        .toLowerCase();
+
+                    String invertidoTexto = "";
+
+                    for (int i = limpio.length() - 1; i >= 0; i--) {
+                        invertidoTexto += limpio.charAt(i);
+                    }
+
+                    if (limpio.equals(invertidoTexto)) {
+                        System.out.println("Si! Es un palindromo.");
+                    } else {
+                        System.out.println("No, no es un palindromo.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Gracias por usar el programa. Hasta luego!");
+                    break;
+
+                default:
+                    System.out.println("Opcion no valida. Intenta con 1, 2 o 3.");
+            }
+
+        } while (opcion != 3);
+
+        sc.close();
+    }
+}
