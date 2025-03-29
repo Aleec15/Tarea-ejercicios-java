@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class FormulaCuadratica {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Pedir los coeficientes
+        System.out.println("Resolviendo una ecuación cuadrática: ax^2 + bx + c = 0");
+
+        System.out.print("Ingresa el valor de a: ");
+        double a = sc.nextDouble();
+
+        // Validar que a no sea cero
+        if (a == 0) {
+            System.out.println("El valor de 'a' no puede ser cero. No es una ecuación cuadrática.");
+            return;
+        }
+
+        System.out.print("Ingresa el valor de b: ");
+        double b = sc.nextDouble();
+
+        System.out.print("Ingresa el valor de c: ");
+        double c = sc.nextDouble();
+
+        // Calcular el discriminante
+        double discriminante = b * b - 4 * a * c;
+
+        System.out.println("Discriminante: " + discriminante);
+
+        if (discriminante > 0) {
+            // Dos soluciones reales
+            double x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
+            double x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
+            System.out.println("La ecuación tiene dos soluciones reales:");
+            System.out.println("x1 = " + x1);
+            System.out.println("x2 = " + x2);
+        } else if (discriminante == 0) {
+            // Una solución real (repetida)
+            double x = -b / (2 * a);
+            System.out.println("La ecuación tiene una solución real:");
+            System.out.println("x = " + x);
+        } else {
+            // No hay soluciones reales
+            System.out.println("La ecuación no tiene soluciones reales.");
+        }
+
+        sc.close();
+    }
+}
