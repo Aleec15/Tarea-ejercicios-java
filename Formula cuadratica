@@ -5,14 +5,14 @@ public class FormulaCuadratica {
         Scanner sc = new Scanner(System.in);
 
         // Pedir los coeficientes
-        System.out.println("Resolviendo una ecuación cuadrática: ax^2 + bx + c = 0");
+        System.out.println("Resolviendo una ecuacion cuadrstica: ax^2 + bx + c = 0");
 
         System.out.print("Ingresa el valor de a: ");
         double a = sc.nextDouble();
 
         // Validar que a no sea cero
         if (a == 0) {
-            System.out.println("El valor de 'a' no puede ser cero. No es una ecuación cuadrática.");
+            System.out.println("El valor de 'a' no puede ser cero. No es una ecuacion cuadratica.");
             return;
         }
 
@@ -35,13 +35,13 @@ public class FormulaCuadratica {
             System.out.println("x1 = " + x1);
             System.out.println("x2 = " + x2);
         } else if (discriminante == 0) {
-            // Una solución real (repetida)
+            // Una solucion real (repetida)
             double x = -b / (2 * a);
-            System.out.println("La ecuación tiene una solución real:");
+            System.out.println("La ecuacion tiene una solucion real:");
             System.out.println("x = " + x);
         } else {
             // No hay soluciones reales
-            System.out.println("La ecuación no tiene soluciones reales.");
+            System.out.println("La ecuacion no tiene soluciones reales.");
         }
 
         sc.close();
