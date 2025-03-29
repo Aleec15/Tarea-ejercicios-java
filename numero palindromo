@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class NumeroPalindromo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Ingresa un numero para verificar si es palindromo: ");
+        int numero = sc.nextInt();
+
+        // Guardar el numero original
+        int original = numero;
+
+        // Invertir el numero
+        int invertido = 0;
+        while (numero > 0) {
+            int digito = numero % 10; // sacar el ultimo digito
+            invertido = invertido * 10 + digito; // agregarlo al numero invertido
+            numero = numero / 10; // quitar el ultimo digito
+        }
+
+        // Verificar si el numero es igual al invertido
+        if (original == invertido) {
+            System.out.println("¡Si! El numero es palindromo.");
+        } else {
+            System.out.println("No, el numero no es palindromo.");
+        }
+
+        sc.close();
+    }
+}
